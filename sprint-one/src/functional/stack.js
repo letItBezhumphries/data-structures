@@ -7,7 +7,7 @@ var Stack = function() {
   // Implement the methods below
   someInstance.push = function(value) {
     numericKey += 1;
-    return storage[numericKey] = value;
+    storage[numericKey] = value;
   };
 
   someInstance.pop = function() {
@@ -20,7 +20,6 @@ var Stack = function() {
   someInstance.size = function() {
     return Object.keys(storage).length;
   };
-
   return someInstance;
 };
 
