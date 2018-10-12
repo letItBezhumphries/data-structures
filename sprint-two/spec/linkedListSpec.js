@@ -36,6 +36,15 @@ describe('linkedList', function() {
     expect(linkedList.removeHead()).to.equal(4);
   });
 
+  // it('should return the value of the former head when removeHead is called twice on list with at least 3 nodes', function() {
+  //   linkedList.addToTail(4);
+  //   linkedList.addToTail(5);
+  //   linkedList.addToTail(6);
+  //   linkedList.removeHead();
+  //   expect(linkedList.removeHead()).to.equal(5);
+  //   expect(linkedList.removeHead()).to.equal(6);
+  // });
+
   it('should contain a value that was added', function() {
     linkedList.addToTail(4);
     linkedList.addToTail(5);
@@ -52,4 +61,5 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+  
 });
