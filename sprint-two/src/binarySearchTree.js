@@ -85,4 +85,7 @@ BinarySearchTree.prototype.depthFirstLog = function(func) {
  *   / \    / \
  *      3       7
  * 
+ * insert --> O(log n) --> Logarithmic 
+ * contains --> O(log n) --> Logarithmic Time
+ * depthFirstLog --> O(n) --> Linear Time
  */
