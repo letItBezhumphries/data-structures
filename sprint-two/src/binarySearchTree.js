@@ -4,74 +4,70 @@ var BinarySearchTree = function(value) {
   this.right = null;
 };
 
-BinarySearchTree.prototype.insert = function(newValue) {
-  //check if given newValue > this.value---? what is this.value
-  if (newValue > this.value) {
-    //if it is greater we want to set/check right side of tree, if this.right is null
+BinarySearchTree.prototype.insert = function(val) {
+  //check for parent
+  if (this.value < val) { //if greater
     if (this.right === null) {
-      //set this.right to new instance with newValue passed in
-      this.right = new BinarySearchTree(newValue);
+      this.right = new BinarySearchTree(val);
     } else {
-      //otherwise this.right has been set already, therefore recursively call insert on this.right tree
-      //with newValue passed in 
-      this.right.insert(newValue);  
+      this.right.insert(val);
     }
-  }
-  //check if newValue < this.value
-  if (newValue < this.value) {
-    //if newValue is less than we want to set/check left side of tree, and whether this.left is null
+  } else { //check left if lesser than
     if (this.left === null) {
-      //set this.left to new instance with newValue passed in
-      this.left = new BinarySearchTree(newValue);
+      this.left = new BinarySearchTree(val);
     } else {
-      //otherwise the left child spot has been set, thus recursively call insert on the left child's children
-      this.left.insert(newValue);
+      this.left.insert(val);
     }
   }
 };
 
-BinarySearchTree.prototype.contains = function(target) {
-  //create function that will search each child for target value
-  var findTarget = function(child) {
-    //check if child is null for base case--if true return false
-    if (child === null) {
+BinarySearchTree.prototype.contains = function(val) {
+  if (this.value === val) {
+    return true;
+  }
+  if (this.value < val ) { //if greater check right
+    if (this.right === null) {
       return false;
-    } 
-    //check for case that we find the target 
-    if (child.value === target) {
-      return true;
     }
-    //check for case where target is either less than or greater than child currently checking
-    if (target < child.value) {
-      //check left side of tree by returning a recursive call of findTarget
-      return findTarget(child.left);
-    } else {
-      //otherwise return recursive call passing in right side
-      return findTarget(child.right);
+    return this.right.contains(val);
+  } else { //if lesser check right
+    if (this.left === null) {
+      return false;
     }
-  }; 
-  return findTarget(this);   
+    //start recursion
+    return this.left.contains(val);
+  }
+
 };
 
-BinarySearchTree.prototype.depthFirstLog = function(func) {
-  var checkEachChild = function(child) {
-    //start with base case of null
-    if (child === null) {
-      return;
-    }
-    func.call(null, child.value);
-    //check left side for not base case
-    if (child.left !== null) {
-      checkEachChild(child.left);
-    } 
-    //check right side for not base case
-    if (child.right !== null) {  
-      checkEachChild(child.right);
-    }
-  };
-  checkEachChild(this);
+BinarySearchTree.prototype.depthFirstLog = function(fn) {
+  fn.call(null, this.value);
+  //if both are null,
+  if (this.left === null && this.right === null) {
+    return;
+  }
+  if (this.left !== null) {
+    this.left.depthFirstLog(fn);
+  }
+  if (this.right !== null) {
+    this.right.depthFirstLog(fn);
+  }      
 };
 
+/*
+ * Complexity: What is the time complexity of the above functions?
+
+
+
+      5
+      /\
+     2  null
+     /\   /\
+    n  3 6  7
+     / \
+      n   n
+
+      */
 
 
 

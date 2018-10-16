@@ -8,7 +8,7 @@ HashTable.prototype.insert = function(key, value) {
   var index = getIndexBelowMaxForKey(key, this._limit);
   //create a tuple an array with first elem = key and 2nd elem = value
   var tuple = [key, value];
-  //create a variable to store a bucket at that index
+  //create a variable to store a bucket at that index because _.storage is private 
   var bucket = this._storage.get(index);
   //check if there isnt a bucket, if true 
   if (!bucket) {

@@ -40,7 +40,7 @@ describe('linkedList', function() {
   //   linkedList.addToTail(4);
   //   linkedList.addToTail(5);
   //   linkedList.addToTail(6);
-  //   linkedList.removeHead();
+  //   expect(linkedList.removeHead()).to.equal(4);
   //   expect(linkedList.removeHead()).to.equal(5);
   //   expect(linkedList.removeHead()).to.equal(6);
   // });
@@ -63,3 +63,4 @@ describe('linkedList', function() {
   // add more tests here to test the functionality of linkedList
   
 });
+
