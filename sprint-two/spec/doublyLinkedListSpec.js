@@ -18,10 +18,36 @@ describe('doublyLinkedList', function() {
     expect(doublyLinkedList.contains).to.be.a('function');
   });
 
+  it('should assign the remaining node "previous" property to null if list has two nodes and removeTail is called', function() {
+    doublyLinkedList.addToHead(4);
+    doublyLinkedList.addToTail(5);
+    doublyLinkedList.removeTail();
+    expect(doublyLinkedList.tail.previous).to.equal(null);
+  });
+
+  it('should have a "previous" property that points to node that precedes it in list', function() {
+    doublyLinkedList.addToHead(4);
+    doublyLinkedList.addToTail(5);
+    expect(doublyLinkedList.tail.previous).to.be(doublyLinkedList.head);
+  });
+
   it('should designate a new tail when new nodes are added', function() {
     doublyLinkedList.addToTail(4);
     expect(doublyLinkedList.tail.value).to.equal(4);
     doublyLinkedList.addToTail(5);
+    expect(doublyLinkedList.tail.value).to.equal(5);
+  });
+
+  it('should designate a new head when new nodes are added', function() {
+    doublyLinkedList.addToHead(4);
+    expect(doublyLinkedList.head.value).to.equal(4);
+    doublyLinkedList.addToHead(5);
+    expect(doublyLinkedList.head.value).to.equal(5);
+  });
+
+  it('should designate a new head and new tail when adding new node to an empty list', function() {
+    doublyLinkedList.addToHead(4);
+    expect(doublyLinkedList.head.value).to.equal(4);
     expect(doublyLinkedList.tail.value).to.equal(5);
   });
 
@@ -38,14 +64,29 @@ describe('doublyLinkedList', function() {
     expect(doublyLinkedList.removeHead()).to.equal(4);
   });
 
-  // it('should return the value of the former head when removeHead is called twice on list with at least 3 nodes', function() {
-  //   doublyLinkedList.addToTail(4);
-  //   doublyLinkedList.addToTail(5);
-  //   doublyLinkedList.addToTail(6);
-  //   expect(doublyLinkedList.removeHead()).to.equal(4);
-  //   expect(doublyLinkedList.removeHead()).to.equal(5);
-  //   expect(doublyLinkedList.removeHead()).to.equal(6);
-  // });
+  it('should return the value of the former head when removeHead is called twice on list with at least 3 nodes', function() {
+    doublyLinkedList.addToTail(4);
+    doublyLinkedList.addToTail(5);
+    doublyLinkedList.addToTail(6);
+    expect(doublyLinkedList.removeHead()).to.equal(4);
+    expect(doublyLinkedList.removeHead()).to.equal(5);
+    expect(doublyLinkedList.removeHead()).to.equal(6);
+  });
+
+  it('should return the value of the last node in list when removeTail is called', function() {
+    doublyLinkedList.addToTail(4);
+    doublyLinkedList.addToHead(5);
+    expect(doublyLinkedList.removeTail()).to.equal(4);
+    expect(doublyLinkedList.removeTail()).to.equal(5);
+  });
+
+  it('should designate a new tail when removeTail is called', function() {
+    doublyLinkedList.addToTail(4);
+    doublyLinkedList.addToHead(5);
+    doublyLinkedList.addToTail(6);
+    doublyLinkedList.removeTail();
+    expect(doublyLinkedList.tail.value).to.equal(4);
+  });
 
   it('should contain a value that was added', function() {
     doublyLinkedList.addToTail(4);
@@ -61,6 +102,7 @@ describe('doublyLinkedList', function() {
     doublyLinkedList.removeHead();
     expect(doublyLinkedList.contains(4)).to.equal(false);
   });
+
 
   // add more tests here to test the functionality of doublyLinkedList
   // it('should remove a specific node reference in constant time,' function() {
