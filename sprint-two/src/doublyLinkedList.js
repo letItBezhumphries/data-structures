@@ -50,7 +50,7 @@ DoublyLinkedList.prototype.removeTail = function() {
 };
 
 DoublyLinkedList.prototype.removeHead = function() {
-  if (this.head === null) {return;}
+  if (this.head === null) { return; }
   var oldHead = this.head;
   this.head = oldHead.next;
   if (this.head === null) { //check for list if empty
