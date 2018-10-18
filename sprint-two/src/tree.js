@@ -1,7 +1,10 @@
 var Tree = function(value) {
   var newTree = {};
   newTree.value = value;
-
+  /*   advanced */
+  newTree.parent = null; //root node
+  /*     *      */
+  // your code here
   newTree.children = [];
   _.extend(newTree, treeMethods);
   return newTree;
@@ -10,38 +13,56 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
-  //create a variable to store new instance of Tree(value)
-  let child = Tree(value);
-  //push the child onto the newTree children array must use this keyword
-  this.children.push(child);
+  //create new Tree
+  var treeNode = Tree(value);
+
+  //add parent
+  if (this.parent === null) { //when adding first node
+    this.value = treeNode.value;
+    this.parent = treeNode;
+    this.children.push(treeNode);
+  } else {
+    treeNode.parent = this;
+    console.log(this, treeNode);
+    //push the tree node into this.children
+    this.children.push(Tree(value));
+  }
+
 };
 
 treeMethods.contains = function(target) {
-  //create a variable to store a boolean
-  var hasChild = false;
-  //iterate over the children array
-  for (let i = 0; i < this.children.length; i++) {
-    //check if a child.value === target 
-    if (this.children[i].value === target) {
-      //if true toggle the hasChild to true
-      hasChild = true;
-    } 
-    //check if the each child has children, if they do  
-    if (this.children[i].children.length > 0) {
-      //check if the child's children.contains(target) is true
-      if (this.children[i].contains(target) === true) {
-        //if true set hasChild to equal true
-        hasChild = true;
+  //check if current tree value is target
+  if (this.value === target) {
+  //return true
+    return true;
+    //otherwise iterate over this.children
+  } else {
+    for (var i = 0; i < this.children.length; i++) {
+      if (this.children[i].value === target) {
+        return true;
+      }
+      //also check if it has children
+      if (this.children[i].children.length > 0) {
+        if (this.children[i].contains(target) === true) { return true; }
       }
     }
   }
-  return hasChild;
+  return false; //if it did not return true
 };
-
-
 
 /*
  * Complexity: What is the time complexity of the above functions?
- * addChild(value) -->  O(1) --> Constant time
- * contains --> O(n) --> Linear Time
+ * addchild() --> constant time
+ * contains() --> linear time
  */
+
+
+/*     *     *     *     A D V A N C E D    C O N T E N T   *     *     *     *      */
+ 
+treeMethods.removeFromParent = function() {
+
+};
+
+treeMethods.traverse = function() {
+
+};
