@@ -1,6 +1,24 @@
 var Queue = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+  this.storage = {};
+  this.numKey = 0;
 };
 
+Queue.prototype.enqueue = function(value) {
+  this.numKey += 1;
+  this.storage[this.numKey] = value;
+};
+
+Queue.prototype.dequeue = function() {
+  let head = this.storage[1];
+  delete this.storage[1];
+  this.storage[1] = this.storage[2];
+  if (this.numKey > 0) {
+    this.numKey--;
+  }
+  return head;
+};
+
+Queue.prototype.size = function() {
+  return this.numKey;
+};
 
