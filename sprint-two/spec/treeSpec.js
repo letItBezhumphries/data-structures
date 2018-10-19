@@ -68,13 +68,12 @@ describe('tree', function() {
     expect(tree.contains(7)).to.equal(false);
     expect(tree.children[0].children[0]).to.equal(undefined);
     tree.children[0].addChild(8);
-    tree.children[0].addChild(9);
     tree.children[0].addChild(3);
+    tree.children[0].addChild(9);
+    tree.children[0].addChild(4);
     tree.children[0].children[1].removeFromParent();
-    expect(tree.contains(9)).to.equal(false);
-    //?? check to see if childen array does not point to removed node  ??
-    expect(tree.children[0].children[1]).to.equal(3); //if there is only one child
-    expect(tree.children[0].children).to.eql([8, 3]);
+    expect(tree.contains(3)).to.equal(false);
+    expect(tree.children[0].children[1].value).to.equal(9);
   });
 
   it('AVANCED TEST: should correctly traverse through your tree/ children', function() {
@@ -85,7 +84,7 @@ describe('tree', function() {
     tree.children[0].addChild(6);
     tree.children[0].addChild(9);
     tree.traverse(func);
-    expect(array).to.eql([11, 5, 6, 9, 8]);
+    expect(array).to.eql([5, 6, 9, 8]);
   });
 
 });

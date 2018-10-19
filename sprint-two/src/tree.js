@@ -4,7 +4,6 @@ var Tree = function(value) {
   /*   advanced */
   newTree.parent = null; //root node
   /*     *      */
-  // your code here
   newTree.children = [];
   _.extend(newTree, treeMethods);
   return newTree;
@@ -12,28 +11,18 @@ var Tree = function(value) {
 
 var treeMethods = {};
 
-treeMethods.addChild = function(value) {
-  //create new Tree
-  var treeNode = Tree(value);
 
-  //add parent
-  if (this.parent === null) { //when adding first node
-    this.value = treeNode.value;
-    this.parent = treeNode;
-    this.children.push(treeNode);
-  } else {
-    treeNode.parent = this;
-    console.log(this, treeNode);
-    //push the tree node into this.children
-    this.children.push(Tree(value));
-  }
+treeMethods.addChild = function(value) {
+
+  var treeNode = Tree(value);
+  treeNode.parent = this; //you wantt to point to the parent's node
+  this.children.push(treeNode);
 
 };
 
 treeMethods.contains = function(target) {
   //check if current tree value is target
   if (this.value === target) {
-  //return true
     return true;
     //otherwise iterate over this.children
   } else {
@@ -56,13 +45,31 @@ treeMethods.contains = function(target) {
  * contains() --> linear time
  */
 
-
 /*     *     *     *     A D V A N C E D    C O N T E N T   *     *     *     *      */
- 
 treeMethods.removeFromParent = function() {
-
+  //helper function to find node's index in parent array
+  var findIndex = function(node) {
+    for (var i = 0; i < node.parent.children.length; i++) {
+      if (node.parent.children[i].value === node.value) {
+        return i;
+      }
+    }
+    return -1; //did not find
+  };
+  var index = findIndex(this);
+  if (index === -1) {
+    return;
+  } //if it did not find the index then exit function
+  this.parent.children.splice(index, 1);
 };
 
-treeMethods.traverse = function() {
 
+treeMethods.traverse = function(fn) {
+  //iterate through all the children
+  for (var i = 0; i < this.children.length; i++) {
+    fn(this.children[i].value);
+    if (this.children[i].children.length > 0 ) {
+      this.children[i].traverse(fn);
+    }
+  }
 };
